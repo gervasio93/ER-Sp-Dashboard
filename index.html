@@ -87,7 +87,9 @@ button{font:inherit;color:inherit;cursor:pointer}
 .day[aria-pressed="true"]{background:var(--ink);border-color:var(--ink)}
 .day[aria-pressed="true"] *{color:var(--bg)!important}
 .sport-grid{display:grid;grid-template-columns:280px minmax(0,1fr);gap:16px;align-items:start}
-.filters{display:grid;gap:16px}
+.filters .fbody{display:grid;gap:16px;margin-top:14px}
+#fdet summary{cursor:pointer;font-weight:600;list-style-position:inside}
+@media (max-width:900px){.sport-grid>div{order:1}.sport-grid>aside{order:0}}
 .fgroup{display:grid;gap:8px}
 .chk{display:flex;align-items:center;gap:8px;font-size:.92rem}
 .chk input{accent-color:var(--accent);width:16px;height:16px}
@@ -164,7 +166,7 @@ button{font:inherit;color:inherit;cursor:pointer}
     </div>
     <div class="days" id="days"></div>
     <div class="sport-grid">
-      <aside class="filters panel">
+      <aside class="filters panel"><details id="fdet"><summary id="fsum">Filtros</summary><div class="fbody">
         <div class="fgroup">
           <span class="label">Deportes</span>
           <label class="chk"><input type="checkbox" id="sp-fut" checked> Fútbol</label>
@@ -182,7 +184,7 @@ button{font:inherit;color:inherit;cursor:pointer}
           <div class="teamlist" id="teamList"></div>
           <button class="linkbtn" id="teamClear">Quitar filtro de equipos</button>
         </div>
-      </aside>
+      </div></details></aside>
       <div>
         <h2 class="daytitle" id="dayTitle"></h2>
         <div class="events" id="events"></div>
@@ -342,6 +344,7 @@ function renderSport(){
   document.getElementById('leagueBox').innerHTML=Object.keys(L).map(k=>`<label class="chk"><input type="checkbox" id="lg-${k}" data-lg="${k}" ${sp.leagues[k]?'checked':''}> ${L[k]}</label>`).join('');
   document.getElementById('teamChips').innerHTML=sp.teams.map(t=>`<button class="chip" data-team="${t}" aria-label="Quitar ${t}">${t} ×</button>`).join('');
   document.getElementById('teamClear').hidden=!sp.teams.length;
+  const nf=sp.teams.length;document.getElementById('fsum').textContent='Filtros'+(nf?' · '+nf+' equipo'+(nf>1?'s':''):'')+(Object.values(sp.sports).includes(false)||Object.values(sp.leagues).includes(false)?' · personalizados':'');
   renderTeamList();
   store.set('sport2',sp);
 }
@@ -380,6 +383,7 @@ function route(){
 window.addEventListener('hashchange',route);
 try{matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if(!document.getElementById('view-divisas').hidden)renderFX()})}catch(e){}
 new MutationObserver(()=>{if(!document.getElementById('view-divisas').hidden)renderFX()}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+try{if(innerWidth>900)document.getElementById('fdet').open=true}catch(e){}
 route();
 /* Tipo de cambio en vivo al abrir la página */
 (async()=>{
@@ -387,7 +391,7 @@ route();
   for(const u of urls){try{const r=await fetch(u,{cache:'no-store'});if(!r.ok)continue;const j=await r.json();const e=j.eur;if(!e||!e.clp)continue;
     const d=j.date, n=FX.dates.length-1;
     if(d>FX.dates[n]){FX.dates.push(d);FX.usd.push(e.usd);FX.clp.push(e.clp);FX.uyu.push(e.uyu)}else if(d===FX.dates[n]){FX.usd[n]=e.usd;FX.clp[n]=e.clp;FX.uyu[n]=e.uyu}
-    LIVE=d;if(!document.getElementById('view-divisas').hidden)renderFX();setFoot();return}catch(err){}}
+    if(d<FX.dates[n])return;LIVE=d;if(!document.getElementById('view-divisas').hidden)renderFX();setFoot();return}catch(err){}}
 })();
 </script>
 </body>
