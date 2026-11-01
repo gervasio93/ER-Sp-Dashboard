@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Tablero">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-180.png">
+<meta name="theme-color" content="#0f6b5a">
+<title>Tablero Gervasio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html,body{margin:0}
+/* Layout: cabecera con pestañas; Divisas = selector por país + gráfico grande + tarjetas de pares; Deporte = tira de días + filtros laterales + lista horaria */
+:root{
+  --bg:#f3f5f4; --surface:#ffffff; --ink:#15211d; --muted:#5d6b66; --line:#d9e0dd;
+  --accent:#0f6b5a; --accent-soft:#e1efeb; --up:#1b7a3e; --down:#b4372d;
+  --cl:#c8352b; --uy:#2f6fb5; --eu:#a07a12;
+  --f1:#d1342a; --padel:#2c8a7a; --fut:#3b5bab;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1513; --surface:#18201d; --ink:#e6ece9; --muted:#97a6a0; --line:#2a3531;
+  --accent:#4fc2a8; --accent-soft:#1d332d; --up:#5ccb83; --down:#f0776b;
+  --cl:#f0766c; --uy:#74a9e6; --eu:#e0b84a; --f1:#f0766c; --padel:#5cc4b2; --fut:#8aa4ec; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1513; --surface:#18201d; --ink:#e6ece9; --muted:#97a6a0; --line:#2a3531;
+  --accent:#4fc2a8; --accent-soft:#1d332d; --up:#5ccb83; --down:#f0776b;
+  --cl:#f0766c; --uy:#74a9e6; --eu:#e0b84a; --f1:#f0766c; --padel:#5cc4b2; --fut:#8aa4ec; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45}
+.wrap{max-width:1180px;margin:0 auto;padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;margin-bottom:20px}
+h1{font-family:var(--display);font-size:clamp(1.6rem,3vw,2.2rem);margin:0;letter-spacing:-.01em;text-wrap:balance}
+.sub{color:var(--muted);margin:2px 0 0}
+.tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:4px}
+.tabs a{padding:8px 16px;border-radius:7px;color:var(--muted);text-decoration:none;font-weight:600}
+.tabs a[aria-current="page"]{background:var(--accent);color:var(--surface)}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.seg{display:inline-flex;flex-wrap:wrap;gap:4px}
+.seg button{border:1px solid var(--line);background:var(--surface);padding:6px 12px;border-radius:999px;font-size:.9rem}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.label{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* Divisas */
+.fx-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}
+.chart-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:flex-start}
+.pair-title{font-family:var(--display);font-size:1.35rem;margin:0}
+.big{font-size:2rem;font-weight:500;margin-top:4px}
+.chg{font-size:.95rem;font-weight:500}
+.chg.up{color:var(--up)} .chg.down{color:var(--down)}
+.hint{color:var(--muted);font-size:.85rem}
+.chart-box{position:relative;height:320px;margin-top:12px}
+.countries{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:18px}
+.country h3{font-family:var(--display);font-size:1.05rem;margin:0 0 8px;display:flex;align-items:center;gap:8px}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.pairs{display:grid;gap:6px}
+.pair{display:grid;grid-template-columns:1fr auto;gap:2px 10px;text-align:left;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--line);border-radius:8px;padding:9px 12px}
+.pair[aria-pressed="true"]{border-color:var(--accent);border-left-color:var(--accent);background:var(--accent-soft)}
+.pair .nm{font-weight:600}
+.pair .v{text-align:right}
+.pair .c{grid-column:2;text-align:right;font-size:.82rem}
+.pair .x{grid-column:1;grid-row:2;font-size:.8rem;color:var(--muted)}
+.foot{margin-top:18px;color:var(--muted);font-size:.85rem;max-width:75ch}
+
+/* Deporte */
+.week-nav{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.week-nav .wk{font-family:var(--display);font-size:1.15rem;font-weight:700;min-width:15ch}
+.navbtn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 10px}
+.navbtn:disabled{opacity:.4;cursor:default}
+.days{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;margin-bottom:16px}
+.day{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 4px;text-align:center;display:grid;gap:2px}
+.day .dn{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.day .dd{font-family:var(--display);font-size:1.3rem;font-weight:700;line-height:1}
+.day .cnt{font-size:.75rem;color:var(--muted)}
+.day.today .dd{color:var(--accent)}
+.day[aria-pressed="true"]{background:var(--ink);border-color:var(--ink)}
+.day[aria-pressed="true"] *{color:var(--bg)!important}
+.sport-grid{display:grid;grid-template-columns:280px minmax(0,1fr);gap:16px;align-items:start}
+.filters{display:grid;gap:16px}
+.fgroup{display:grid;gap:8px}
+.chk{display:flex;align-items:center;gap:8px;font-size:.92rem}
+.chk input{accent-color:var(--accent);width:16px;height:16px}
+#teamSearch{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit}
+.teamlist{max-height:300px;overflow:auto;border:1px solid var(--line);border-radius:8px;padding:6px 10px;display:grid;gap:4px}
+.teamlist .lg{margin-top:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--accent);background:var(--accent-soft);color:var(--ink);border-radius:999px;padding:3px 10px;font-size:.85rem}
+.linkbtn{border:none;background:none;color:var(--accent);padding:0;font-weight:600;font-size:.88rem;text-align:left}
+.daytitle{font-family:var(--display);font-size:1.25rem;margin:0 0 10px}
+.events{display:grid;gap:8px}
+.ev{display:grid;grid-template-columns:62px 4px minmax(0,1fr) auto;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.ev .t{font-family:var(--mono);font-size:1rem;font-weight:500}
+.ev .bar{align-self:stretch;border-radius:2px}
+.ev .what{font-weight:600}
+.ev .comp{font-size:.85rem;color:var(--muted)}
+.ev .tag{font-size:.75rem;border:1px solid var(--line);border-radius:999px;padding:2px 8px;color:var(--muted);white-space:nowrap}
+.ev.past{opacity:.6}
+.ev .hl{color:var(--accent)}
+.dayhdr{font-family:var(--display);font-size:1rem;margin:14px 0 2px;color:var(--muted)}
+.empty{padding:28px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:10px}
+@media (max-width:900px){.countries{grid-template-columns:1fr}.sport-grid{grid-template-columns:1fr}.teamlist{max-height:220px}}
+@media (max-width:560px){.days{grid-template-columns:repeat(4,minmax(0,1fr))}.ev{grid-template-columns:52px 4px minmax(0,1fr)}.ev .tag{grid-column:3}.chart-box{height:260px}.big{font-size:1.6rem}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Tablero Gervasio</h1>
+      <p class="sub">Divisas de Chile, Uruguay y la zona euro · Agenda deportiva en hora peninsular española</p>
+    </div>
+    <nav class="tabs" aria-label="Secciones">
+      <a href="#divisas" id="tab-divisas">Divisas</a>
+      <a href="#deporte" id="tab-deporte">Deporte</a>
+    </nav>
+  </header>
+
+  <section id="view-divisas">
+    <div class="fx-head">
+      <div class="seg" id="tfSeg" role="group" aria-label="Periodo">
+        <button data-tf="d">Diario</button><button data-tf="w">Semanal</button><button data-tf="m">Mensual</button><button data-tf="y">Anual</button>
+      </div>
+      <span class="hint" id="tfHint"></span>
+    </div>
+    <div class="panel">
+      <div class="chart-top">
+        <div>
+          <div class="label" id="pairCountry"></div>
+          <h2 class="pair-title" id="pairTitle"></h2>
+          <div class="big num" id="pairRate"></div>
+          <div class="hint" id="pairExtra"></div>
+        </div>
+        <div style="text-align:right">
+          <div class="label">Variación en el periodo</div>
+          <div class="chg num" id="pairChg"></div>
+          <div class="hint num" id="pairRange"></div>
+        </div>
+      </div>
+      <div class="chart-box"><canvas id="fxChart" aria-label="Gráfico del tipo de cambio"></canvas></div>
+    </div>
+    <div class="countries" id="countries"></div>
+    <p class="foot" id="fxFoot"></p>
+  </section>
+
+  <section id="view-deporte" hidden>
+    <div class="week-nav">
+      <button class="navbtn" id="wkPrev" aria-label="Semana anterior">←</button>
+      <span class="wk" id="wkLabel"></span>
+      <button class="navbtn" id="wkNext" aria-label="Semana siguiente">→</button>
+      <button class="navbtn" id="wkToday">Hoy</button>
+    </div>
+    <div class="days" id="days"></div>
+    <div class="sport-grid">
+      <aside class="filters panel">
+        <div class="fgroup">
+          <span class="label">Deportes</span>
+          <label class="chk"><input type="checkbox" id="sp-fut" checked> Fútbol</label>
+          <label class="chk"><input type="checkbox" id="sp-f1" checked> Fórmula 1</label>
+          <label class="chk"><input type="checkbox" id="sp-padel" checked> Premier Padel</label>
+        </div>
+        <div class="fgroup">
+          <span class="label">Ligas</span>
+          <div id="leagueBox"></div>
+        </div>
+        <div class="fgroup">
+          <span class="label">Equipos</span>
+          <input id="teamSearch" type="search" placeholder="Buscar equipo…" autocomplete="off">
+          <div class="chips" id="teamChips"></div>
+          <div class="teamlist" id="teamList"></div>
+          <button class="linkbtn" id="teamClear">Quitar filtro de equipos</button>
+        </div>
+      </aside>
+      <div>
+        <h2 class="daytitle" id="dayTitle"></h2>
+        <div class="events" id="events"></div>
+        <p class="foot">Horarios en hora peninsular (CET, UTC+1). Fútbol según los calendarios oficiales de cada liga; pueden cambiar por la televisión. En Premier Padel la organización publica el orden de juego cada día, por eso aparece como «por confirmar».</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+const FX = __FX__;
+let LIVE=null;
+const NOW = new Date(); // se usa para marcar eventos ya disputados
+const TODAY_ISO = (()=>{const d=new Date(NOW.toLocaleString('en-US',{timeZone:'Europe/Madrid'}));return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')})();
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+/* ---------- Divisas ---------- */
+const CUR={EUR:'euro',USD:'dólar',CLP:'peso chileno',UYU:'peso uruguayo'};
+const COUNTRIES=[
+ {id:'cl',name:'Chile',color:'--cl',pairs:[['EUR','CLP'],['CLP','EUR'],['USD','CLP'],['CLP','USD']]},
+ {id:'uy',name:'Uruguay',color:'--uy',pairs:[['EUR','UYU'],['UYU','EUR'],['USD','UYU'],['UYU','USD']]},
+ {id:'eu',name:'Zona euro · EE. UU.',color:'--eu',pairs:[['EUR','USD'],['USD','EUR']]}
+];
+const perEUR=i=>({EUR:1,USD:FX.usd[i],CLP:FX.clp[i],UYU:FX.uyu[i]});
+const rateAt=(b,q,i)=>{const e=perEUR(i);return e[q]/e[b]};
+const fmt=v=>{const s=v>=100?2:v>=1?4:Math.max(4,-Math.floor(Math.log10(v))+3);return v.toLocaleString('es-ES',{minimumFractionDigits:Math.min(s,8),maximumFractionDigits:Math.min(s,8)})};
+const pct=v=>(v>=0?'+':'')+v.toLocaleString('es-ES',{minimumFractionDigits:2,maximumFractionDigits:2})+' %';
+const MES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+const dlabel=s=>{const [y,m,d]=s.split('-');return +d+' '+MES[+m-1]+' '+y.slice(2)};
+const TF={d:'Últimos 30 días, cierre diario',w:'Últimas 52 semanas, cierre semanal',m:'Desde marzo 2024, cierre mensual',y:'Media anual (2026 hasta hoy)'};
+function series(b,q,tf){
+  const D=FX.dates, n=D.length, pts=[];
+  if(tf==='d'){for(let i=Math.max(0,n-30);i<n;i++)pts.push({l:dlabel(D[i]),v:rateAt(b,q,i)});return pts}
+  const key=tf==='w'?(s=>{const d=new Date(s+'T12:00:00Z');const day=(d.getUTCDay()+6)%7;d.setUTCDate(d.getUTCDate()-day);return d.toISOString().slice(0,10)})
+          :tf==='m'?(s=>s.slice(0,7)):(s=>s.slice(0,4));
+  const groups=new Map();
+  D.forEach((s,i)=>{const k=key(s);if(!groups.has(k))groups.set(k,[]);groups.get(k).push(i)});
+  for(const [k,idx] of groups){
+    if(tf==='y'){const v=idx.reduce((a,i)=>a+rateAt(b,q,i),0)/idx.length;pts.push({l:k,v})}
+    else{const i=idx[idx.length-1];pts.push({l:tf==='m'?MES[+k.slice(5)-1]+' '+k.slice(2,4):dlabel(k),v:rateAt(b,q,i)})}
+  }
+  return tf==='w'?pts.slice(-52):pts;
+}
+let fxState=store.get('fx',{b:'EUR',q:'CLP',tf:'d'});
+let chart;
+function extraLine(b,q,v){
+  if(b==='CLP')return '1.000 CLP = '+fmt(v*1000)+' '+q;
+  if(b==='UYU')return '100 UYU = '+fmt(v*100)+' '+q;
+  return '1 '+CUR[b]+' = '+fmt(v)+' '+CUR[q]+(v>1?'s':'');
+}
+function renderFX(){
+  const {b,q,tf}=fxState, last=FX.dates.length-1;
+  const c=COUNTRIES.find(c=>c.pairs.some(p=>p[0]===b&&p[1]===q));
+  document.querySelectorAll('#tfSeg button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.tf===tf));
+  document.getElementById('tfHint').textContent=TF[tf];
+  const pts=series(b,q,tf), cur=rateAt(b,q,last), first=pts[0].v, lastv=pts[pts.length-1].v;
+  const ch=(lastv/first-1)*100;
+  document.getElementById('pairCountry').textContent=c.name;
+  document.getElementById('pairTitle').textContent=b+' → '+q;
+  document.getElementById('pairRate').textContent=fmt(cur)+' '+q;
+  document.getElementById('pairExtra').textContent=extraLine(b,q,cur)+' · '+dlabel(FX.dates[last]);
+  const el=document.getElementById('pairChg');el.textContent=pct(ch);el.className='chg num '+(ch>=0?'up':'down');
+  const vals=pts.map(p=>p.v);
+  document.getElementById('pairRange').textContent='mín '+fmt(Math.min(...vals))+' · máx '+fmt(Math.max(...vals));
+  drawChart(pts,tf,css(c.color));
+  document.getElementById('countries').innerHTML=COUNTRIES.map(c=>`<div class="country"><h3><span class="dot" style="background:var(${c.color})"></span>${c.name}</h3><div class="pairs">${c.pairs.map(([pb,pq])=>{
+    const v=rateAt(pb,pq,last), s=series(pb,pq,tf), d=(s[s.length-1].v/s[0].v-1)*100;
+    return `<button class="pair" data-b="${pb}" data-q="${pq}" aria-pressed="${pb===b&&pq===q}" style="border-left-color:var(${c.color})"><span class="nm">${pb} → ${pq}</span><span class="v num">${fmt(v)}</span><span class="x">${CUR[pb]} a ${CUR[pq]}</span><span class="c num chg ${d>=0?'up':'down'}">${pct(d)}</span></button>`}).join('')}</div></div>`).join('');
+  store.set('fx',fxState);
+}
+function drawChart(pts,tf,color){
+  if(!window.Chart){document.querySelector('.chart-box').innerHTML='<p class="empty">No se pudo cargar la librería del gráfico. Recarga la página.</p>';return}
+  const ink=css('--muted'), grid=css('--line');
+  const ctx=document.getElementById('fxChart');
+  const g=ctx.getContext('2d').createLinearGradient(0,0,0,320);g.addColorStop(0,color+'40');g.addColorStop(1,color+'00');
+  const ds={data:pts.map(p=>p.v),borderColor:color,backgroundColor:tf==='y'?color+'cc':g,fill:tf!=='y',tension:.25,borderWidth:2,
+    pointRadius:pts.map((_,i)=>i===pts.length-1?4:0),pointBackgroundColor:color,pointHoverRadius:5,borderRadius:6,maxBarThickness:70};
+  if(chart)chart.destroy();
+  chart=new Chart(ctx,{type:tf==='y'?'bar':'line',data:{labels:pts.map(p=>p.l),datasets:[ds]},
+    options:{responsive:true,maintainAspectRatio:false,animation:{duration:250},interaction:{mode:'index',intersect:false},
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+fmt(c.parsed.y)}}},
+      scales:{x:{grid:{display:false},ticks:{color:ink,maxTicksLimit:8,maxRotation:0,font:{family:'JetBrains Mono',size:11}}},
+              y:{beginAtZero:false,grid:{color:grid},border:{display:false},ticks:{color:ink,maxTicksLimit:6,callback:v=>fmt(v),font:{family:'JetBrains Mono',size:11}}}}}});
+}
+document.getElementById('tfSeg').addEventListener('click',e=>{const t=e.target.closest('button');if(t){fxState.tf=t.dataset.tf;renderFX()}});
+document.getElementById('countries').addEventListener('click',e=>{const t=e.target.closest('.pair');if(t){fxState.b=t.dataset.b;fxState.q=t.dataset.q;renderFX()}});
+function setFoot(){document.getElementById('fxFoot').textContent=(LIVE?'Actualizado en vivo al abrir la página ('+dlabel(LIVE)+'). ':'')+'Fuente: datos de mercado agregados (currency-api de fawazahmed0, basada en varias fuentes públicas). Último dato: '+dlabel(FX.dates[FX.dates.length-1])+'. El histórico antiguo es semanal y los últimos meses, diarios. Los tipos son de referencia, no de compra o venta en casa de cambio. Calendario deportivo actualizado: '+dlabel(SPORT.actualizado)+'.'}
+setFoot();
+
+/* ---------- Deporte ---------- */
+const L={PL:'Premier League',LL:'LaLiga',SA:'Serie A',L1:'Ligue 1'};
+const SPORT = __SPORT__;
+const FUT=SPORT.futbol.map(e=>[e.d,e.t,e.liga,e.local,e.visitante,e.jornada]);
+const EVENTS=[
+ ...FUT.map(([d,t,lg,h,a,j])=>({d,t,sport:'fut',lg,home:h,away:a,title:h+' – '+a,comp:L[lg]+(j?' · '+j:'')})),
+ ...SPORT.f1.map(e=>({d:e.d,t:e.t,sport:'f1',title:e.titulo,comp:'Fórmula 1 · '+e.lugar})),
+ ...SPORT.padel.map(e=>({d:e.d,t:e.t||'',sport:'padel',title:e.titulo,comp:'Premier Padel · '+e.lugar}))
+];
+const WEEKS=SPORT.semanas;
+const DATA_FROM=SPORT.desde;
+const DOW=['dom','lun','mar','mié','jue','vie','sáb'];
+const DOWL=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+const MESL=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const addDays=(s,n)=>{const d=new Date(s+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10)};
+const dobj=s=>new Date(s+'T12:00:00Z');
+const isPast=e=>{if(!e.t)return e.d<TODAY_ISO;const [h,m]=e.t.split(':').map(Number);const start=new Date(e.d+'T'+e.t+':00+01:00');return NOW-start>2*3600e3};
+
+const def={wk:Math.max(0,WEEKS.findIndex((w,i)=>TODAY_ISO>=w&&TODAY_ISO<addDays(w,7))),day:TODAY_ISO,sports:{fut:true,f1:true,padel:true},leagues:{PL:true,LL:true,SA:true,L1:true},teams:[]};
+let sp=Object.assign({},def,store.get('sport2',{}));
+if(sp.wk<0||sp.wk>=WEEKS.length)sp.wk=def.wk;
+
+const TEAMS={};FUT.forEach(([,, lg,h,a])=>{(TEAMS[lg]=TEAMS[lg]||new Set).add(h);TEAMS[lg].add(a)});
+function visible(e){
+  if(!sp.sports[e.sport])return false;
+  if(e.sport==='fut'){
+    if(!sp.leagues[e.lg])return false;
+    if(sp.teams.length&&!sp.teams.includes(e.home)&&!sp.teams.includes(e.away))return false;
+  }
+  return true;
+}
+const color={fut:'--fut',f1:'--f1',padel:'--padel'};
+const tagTxt={fut:'Fútbol',f1:'F1',padel:'Pádel'};
+function evHTML(e){
+  const t=e.sport==='fut'&&sp.teams.length?`${sp.teams.includes(e.home)?'<span class="hl">'+e.home+'</span>':e.home} – ${sp.teams.includes(e.away)?'<span class="hl">'+e.away+'</span>':e.away}`:e.title;
+  return `<div class="ev ${isPast(e)?'past':''}"><span class="t">${e.t||'—'}</span><span class="bar" style="background:var(${color[e.sport]})"></span><div><div class="what">${t}</div><div class="comp">${e.comp}${e.t?'':' · horario por confirmar'}${isPast(e)?' · finalizado':''}</div></div><span class="tag">${tagTxt[e.sport]}</span></div>`;
+}
+const sortEv=(a,b)=>(a.t||'00:00').localeCompare(b.t||'00:00')||a.comp.localeCompare(b.comp);
+function renderSport(){
+  const w=WEEKS[sp.wk];
+  const days=[...Array(7)].map((_,i)=>addDays(w,i));
+  if(!days.includes(sp.day))sp.day=days.includes(TODAY_ISO)?TODAY_ISO:days[0];
+  const a=dobj(days[0]),b=dobj(days[6]);
+  document.getElementById('wkLabel').textContent=`${a.getUTCDate()} ${MES[a.getUTCMonth()]} – ${b.getUTCDate()} ${MES[b.getUTCMonth()]} ${b.getUTCFullYear()}`;
+  document.getElementById('wkPrev').disabled=sp.wk===0;
+  document.getElementById('wkNext').disabled=sp.wk===WEEKS.length-1;
+  const allBtn=`<button class="day" data-day="all" aria-pressed="${sp.day==='all'}"><span class="dn">Semana</span><span class="dd">7d</span><span class="cnt">${EVENTS.filter(e=>days.includes(e.d)&&visible(e)).length} ev.</span></button>`;
+  document.getElementById('days').innerHTML=days.map(d=>{const o=dobj(d);const n=EVENTS.filter(e=>e.d===d&&visible(e)).length;
+    return `<button class="day ${d===TODAY_ISO?'today':''}" data-day="${d}" aria-pressed="${sp.day===d}"><span class="dn">${DOW[o.getUTCDay()]}${d===TODAY_ISO?' · hoy':''}</span><span class="dd">${o.getUTCDate()}</span><span class="cnt">${n?n+' ev.':'—'}</span></button>`}).join('')+allBtn;
+  const box=document.getElementById('events');
+  if(sp.day==='all'){
+    document.getElementById('dayTitle').textContent='Toda la semana';
+    const html=days.map(d=>{const ev=EVENTS.filter(e=>e.d===d&&visible(e)).sort(sortEv);if(!ev.length)return'';const o=dobj(d);return `<div class="dayhdr">${DOWL[o.getUTCDay()]} ${o.getUTCDate()} de ${MESL[o.getUTCMonth()]}</div>`+ev.map(evHTML).join('')}).join('');
+    box.innerHTML=html||'<div class="empty">No hay eventos esta semana con los filtros elegidos.</div>';
+  }else{
+    const o=dobj(sp.day);
+    document.getElementById('dayTitle').textContent=`${DOWL[o.getUTCDay()][0].toUpperCase()+DOWL[o.getUTCDay()].slice(1)} ${o.getUTCDate()} de ${MESL[o.getUTCMonth()]}`;
+    const ev=EVENTS.filter(e=>e.d===sp.day&&visible(e)).sort(sortEv);
+    let msg=sp.teams.length?'Tus equipos no juegan este día. Prueba con «Semana» para ver la semana completa.':'No hay eventos este día con los filtros elegidos.';
+    if(sp.day<DATA_FROM)msg='La agenda empieza el '+DATA_FROM.split('-').reverse().join('/')+'.';
+    const aviso=SPORT.avisos&&SPORT.avisos[w];
+    box.innerHTML=(aviso?`<div class="empty">${aviso}</div>`:'')+(ev.length?ev.map(evHTML).join(''):(aviso?'':`<div class="empty">${msg}</div>`));
+  }
+  // filtros
+  ['fut','f1','padel'].forEach(s=>document.getElementById('sp-'+s).checked=sp.sports[s]);
+  document.getElementById('leagueBox').innerHTML=Object.keys(L).map(k=>`<label class="chk"><input type="checkbox" id="lg-${k}" data-lg="${k}" ${sp.leagues[k]?'checked':''}> ${L[k]}</label>`).join('');
+  document.getElementById('teamChips').innerHTML=sp.teams.map(t=>`<button class="chip" data-team="${t}" aria-label="Quitar ${t}">${t} ×</button>`).join('');
+  document.getElementById('teamClear').hidden=!sp.teams.length;
+  renderTeamList();
+  store.set('sport2',sp);
+}
+function renderTeamList(){
+  const q=document.getElementById('teamSearch').value.trim().toLowerCase();
+  document.getElementById('teamList').innerHTML=Object.keys(L).map(lg=>{
+    const ts=[...TEAMS[lg]].sort((a,b)=>a.localeCompare(b,'es')).filter(t=>t.toLowerCase().includes(q));
+    if(!ts.length)return'';
+    return `<div class="label lg">${L[lg]}</div>`+ts.map(t=>`<label class="chk"><input type="checkbox" data-team="${t}" ${sp.teams.includes(t)?'checked':''}> ${t}</label>`).join('');
+  }).join('')||'<span class="hint">Ningún equipo coincide.</span>';
+}
+document.getElementById('days').addEventListener('click',e=>{const t=e.target.closest('.day');if(t){sp.day=t.dataset.day;renderSport()}});
+document.getElementById('wkPrev').onclick=()=>{sp.wk--;sp.day='';renderSport()};
+document.getElementById('wkNext').onclick=()=>{sp.wk++;sp.day='';renderSport()};
+document.getElementById('wkToday').onclick=()=>{sp.wk=def.wk;sp.day=TODAY_ISO;renderSport()};
+document.querySelector('.filters').addEventListener('change',e=>{
+  const t=e.target;
+  if(t.id.startsWith('sp-'))sp.sports[t.id.slice(3)]=t.checked;
+  else if(t.dataset.lg)sp.leagues[t.dataset.lg]=t.checked;
+  else if(t.dataset.team){sp.teams=t.checked?[...sp.teams,t.dataset.team]:sp.teams.filter(x=>x!==t.dataset.team)}
+  renderSport();
+});
+document.getElementById('teamChips').addEventListener('click',e=>{const t=e.target.closest('.chip');if(t){sp.teams=sp.teams.filter(x=>x!==t.dataset.team);renderSport()}});
+document.getElementById('teamClear').onclick=()=>{sp.teams=[];renderSport()};
+document.getElementById('teamSearch').addEventListener('input',renderTeamList);
+
+/* ---------- Navegación ---------- */
+function route(){
+  const v=location.hash==='#deporte'?'deporte':'divisas';
+  document.getElementById('view-divisas').hidden=v!=='divisas';
+  document.getElementById('view-deporte').hidden=v!=='deporte';
+  document.getElementById('tab-divisas').setAttribute('aria-current',v==='divisas'?'page':'false');
+  document.getElementById('tab-deporte').setAttribute('aria-current',v==='deporte'?'page':'false');
+  if(v==='divisas')renderFX();else renderSport();
+}
+window.addEventListener('hashchange',route);
+try{matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if(!document.getElementById('view-divisas').hidden)renderFX()})}catch(e){}
+new MutationObserver(()=>{if(!document.getElementById('view-divisas').hidden)renderFX()}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+route();
+/* Tipo de cambio en vivo al abrir la página */
+(async()=>{
+  const urls=['https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/eur.min.json','https://latest.currency-api.pages.dev/v1/currencies/eur.min.json'];
+  for(const u of urls){try{const r=await fetch(u,{cache:'no-store'});if(!r.ok)continue;const j=await r.json();const e=j.eur;if(!e||!e.clp)continue;
+    const d=j.date, n=FX.dates.length-1;
+    if(d>FX.dates[n]){FX.dates.push(d);FX.usd.push(e.usd);FX.clp.push(e.clp);FX.uyu.push(e.uyu)}else if(d===FX.dates[n]){FX.usd[n]=e.usd;FX.clp[n]=e.clp;FX.uyu[n]=e.uyu}
+    LIVE=d;if(!document.getElementById('view-divisas').hidden)renderFX();setFoot();return}catch(err){}}
+})();
+</script>
+</body>
+</html>
