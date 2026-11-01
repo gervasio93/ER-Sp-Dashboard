@@ -195,6 +195,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>
 const FX = __FX__;
+const SPORT = __SPORT__;
 let LIVE=null;
 const NOW = new Date(); // se usa para marcar eventos ya disputados
 const TODAY_ISO = (()=>{const d=new Date(NOW.toLocaleString('en-US',{timeZone:'Europe/Madrid'}));return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')})();
@@ -276,7 +277,6 @@ setFoot();
 
 /* ---------- Deporte ---------- */
 const L={PL:'Premier League',LL:'LaLiga',SA:'Serie A',L1:'Ligue 1'};
-const SPORT = __SPORT__;
 const FUT=SPORT.futbol.map(e=>[e.d,e.t,e.liga,e.local,e.visitante,e.jornada]);
 const EVENTS=[
  ...FUT.map(([d,t,lg,h,a,j])=>({d,t,sport:'fut',lg,home:h,away:a,title:h+' – '+a,comp:L[lg]+(j?' · '+j:'')})),
