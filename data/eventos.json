@@ -1,103 +1,15 @@
 {
- "actualizado": "2026-11-15",
- "desde": "2026-11-02",
+ "actualizado": "2026-11-16",
+ "desde": "2026-11-09",
  "semanas": [
-  "2026-11-02",
   "2026-11-09",
-  "2026-11-16"
+  "2026-11-16",
+  "2026-11-23"
  ],
  "avisos": {
   "2026-11-09": "Parón FIFA de selecciones: sin jornada de liga esta semana."
  },
  "futbol": [
-  {
-   "d": "2026-11-02",
-   "t": "21:00",
-   "liga": "PL",
-   "local": "Newcastle",
-   "visitante": "Everton",
-   "jornada": "Jornada 9"
-  },
-  {
-   "d": "2026-11-06",
-   "t": "21:00",
-   "liga": "PL",
-   "local": "Everton",
-   "visitante": "Coventry",
-   "jornada": "Jornada 10"
-  },
-  {
-   "d": "2026-11-07",
-   "t": "13:30",
-   "liga": "PL",
-   "local": "Leeds",
-   "visitante": "Tottenham",
-   "jornada": "Jornada 10"
-  },
-  {
-   "d": "2026-11-07",
-   "t": "16:00",
-   "liga": "PL",
-   "local": "Arsenal",
-   "visitante": "Hull City",
-   "jornada": "Jornada 10"
-  },
-  {
-   "d": "2026-11-07",
-   "t": "16:00",
-   "liga": "PL",
-   "local": "Fulham",
-   "visitante": "Newcastle",
-   "jornada": "Jornada 10"
-  },
-  {
-   "d": "2026-11-07",
-   "t": "18:30",
-   "liga": "PL",
-   "local": "Nottingham Forest",
-   "visitante": "Man City",
-   "jornada": "Jornada 10"
-  },
-  {
-   "d": "2026-11-08",
-   "t": "15:00",
-   "liga": "PL",
-   "local": "Brighton",
-   "visitante": "Brentford",
-   "jornada": "Jornada 10"
-  },
-  {
-   "d": "2026-11-08",
-   "t": "15:00",
-   "liga": "PL",
-   "local": "Crystal Palace",
-   "visitante": "Liverpool",
-   "jornada": "Jornada 10"
-  },
-  {
-   "d": "2026-11-08",
-   "t": "15:00",
-   "liga": "PL",
-   "local": "Ipswich",
-   "visitante": "Bournemouth",
-   "jornada": "Jornada 10"
-  },
-  {
-   "d": "2026-11-08",
-   "t": "15:00",
-   "liga": "PL",
-   "local": "Sunderland",
-   "visitante": "Chelsea",
-   "jornada": "Jornada 10"
-  },
-  {
-   "d": "2026-11-08",
-   "t": "17:30",
-   "liga": "PL",
-   "local": "Man Utd",
-   "visitante": "Aston Villa",
-   "jornada": "Jornada 10"
-  },
   {
    "d": "2026-11-21",
    "t": "13:30",
@@ -171,91 +83,91 @@
    "jornada": "Jornada 11"
   },
   {
-   "d": "2026-11-02",
+   "d": "2026-11-23",
    "t": "21:00",
-   "liga": "LL",
-   "local": "Deportivo",
-   "visitante": "Osasuna",
+   "liga": "PL",
+   "local": "Brentford",
+   "visitante": "Everton",
    "jornada": "Jornada 11"
   },
   {
-   "d": "2026-11-06",
+   "d": "2026-11-27",
    "t": "21:00",
-   "liga": "LL",
-   "local": "Sevilla",
-   "visitante": "Alavés",
+   "liga": "PL",
+   "local": "Nottingham Forest",
+   "visitante": "Chelsea",
    "jornada": "Jornada 12"
   },
   {
-   "d": "2026-11-07",
-   "t": "14:00",
-   "liga": "LL",
-   "local": "Málaga",
-   "visitante": "Racing Santander",
+   "d": "2026-11-28",
+   "t": "16:00",
+   "liga": "PL",
+   "local": "Leeds",
+   "visitante": "Coventry",
    "jornada": "Jornada 12"
   },
   {
-   "d": "2026-11-07",
-   "t": "16:15",
-   "liga": "LL",
-   "local": "Espanyol",
-   "visitante": "Deportivo",
+   "d": "2026-11-28",
+   "t": "16:00",
+   "liga": "PL",
+   "local": "Man Utd",
+   "visitante": "Brentford",
    "jornada": "Jornada 12"
   },
   {
-   "d": "2026-11-07",
+   "d": "2026-11-28",
    "t": "18:30",
-   "liga": "LL",
-   "local": "Osasuna",
-   "visitante": "Athletic Club",
+   "liga": "PL",
+   "local": "Ipswich",
+   "visitante": "Aston Villa",
    "jornada": "Jornada 12"
   },
   {
-   "d": "2026-11-07",
-   "t": "21:00",
-   "liga": "LL",
-   "local": "Valencia",
-   "visitante": "Real Madrid",
+   "d": "2026-11-29",
+   "t": "13:00",
+   "liga": "PL",
+   "local": "Everton",
+   "visitante": "Liverpool",
    "jornada": "Jornada 12"
   },
   {
-   "d": "2026-11-08",
-   "t": "14:00",
-   "liga": "LL",
-   "local": "Elche",
-   "visitante": "Betis",
+   "d": "2026-11-29",
+   "t": "15:05",
+   "liga": "PL",
+   "local": "Brighton",
+   "visitante": "Newcastle",
    "jornada": "Jornada 12"
   },
   {
-   "d": "2026-11-08",
-   "t": "16:15",
-   "liga": "LL",
-   "local": "Real Sociedad",
-   "visitante": "Rayo Vallecano",
+   "d": "2026-11-29",
+   "t": "15:05",
+   "liga": "PL",
+   "local": "Crystal Palace",
+   "visitante": "Hull City",
    "jornada": "Jornada 12"
   },
   {
-   "d": "2026-11-08",
-   "t": "18:30",
-   "liga": "LL",
-   "local": "Celta",
-   "visitante": "Levante",
+   "d": "2026-11-29",
+   "t": "15:05",
+   "liga": "PL",
+   "local": "Fulham",
+   "visitante": "Bournemouth",
    "jornada": "Jornada 12"
   },
   {
-   "d": "2026-11-08",
-   "t": "18:30",
-   "liga": "LL",
-   "local": "Villarreal",
-   "visitante": "Getafe",
+   "d": "2026-11-29",
+   "t": "15:05",
+   "liga": "PL",
+   "local": "Sunderland",
+   "visitante": "Tottenham",
    "jornada": "Jornada 12"
   },
   {
-   "d": "2026-11-08",
-   "t": "21:00",
-   "liga": "LL",
-   "local": "Atlético de Madrid",
-   "visitante": "Barcelona",
+   "d": "2026-11-29",
+   "t": "17:30",
+   "liga": "PL",
+   "local": "Arsenal",
+   "visitante": "Man City",
    "jornada": "Jornada 12"
   },
   {
@@ -331,100 +243,84 @@
    "jornada": "Jornada 13"
   },
   {
-   "d": "2026-11-02",
+   "d": "2026-11-23",
+   "t": "21:00",
+   "liga": "LL",
+   "local": "Levante",
+   "visitante": "Elche",
+   "jornada": "Jornada 13"
+  },
+  {
+   "d": "2026-11-27",
+   "t": "21:00",
+   "liga": "LL",
+   "local": "Levante",
+   "visitante": "Racing Santander",
+   "jornada": "Jornada 14"
+  },
+  {
+   "d": "2026-11-28",
+   "t": "14:00",
+   "liga": "LL",
+   "local": "Betis",
+   "visitante": "Rayo Vallecano",
+   "jornada": "Jornada 14"
+  },
+  {
+   "d": "2026-11-28",
+   "t": "16:15",
+   "liga": "LL",
+   "local": "Málaga",
+   "visitante": "Athletic Club",
+   "jornada": "Jornada 14"
+  },
+  {
+   "d": "2026-11-28",
    "t": "18:30",
-   "liga": "SA",
-   "local": "Sassuolo",
-   "visitante": "Fiorentina",
-   "jornada": "Giornata 10"
+   "liga": "LL",
+   "local": "Elche",
+   "visitante": "Atlético de Madrid",
+   "jornada": "Jornada 14"
   },
   {
-   "d": "2026-11-02",
-   "t": "20:45",
-   "liga": "SA",
-   "local": "Atalanta",
-   "visitante": "Parma",
-   "jornada": "Giornata 10"
+   "d": "2026-11-28",
+   "t": "21:00",
+   "liga": "LL",
+   "local": "Real Madrid",
+   "visitante": "Alavés",
+   "jornada": "Jornada 14"
   },
   {
-   "d": "2026-11-06",
-   "t": "20:45",
-   "liga": "SA",
-   "local": "Venezia",
-   "visitante": "Udinese",
-   "jornada": "Giornata 11"
+   "d": "2026-11-29",
+   "t": "14:00",
+   "liga": "LL",
+   "local": "Valencia",
+   "visitante": "Osasuna",
+   "jornada": "Jornada 14"
   },
   {
-   "d": "2026-11-07",
-   "t": "15:00",
-   "liga": "SA",
-   "local": "Cagliari",
-   "visitante": "Frosinone",
-   "jornada": "Giornata 11"
+   "d": "2026-11-29",
+   "t": "16:15",
+   "liga": "LL",
+   "local": "Deportivo",
+   "visitante": "Barcelona",
+   "jornada": "Jornada 14"
   },
   {
-   "d": "2026-11-07",
-   "t": "15:00",
-   "liga": "SA",
-   "local": "Torino",
-   "visitante": "Lecce",
-   "jornada": "Giornata 11"
+   "d": "2026-11-29",
+   "t": "18:30",
+   "liga": "LL",
+   "local": "Celta",
+   "visitante": "Villarreal",
+   "jornada": "Jornada 14"
   },
   {
-   "d": "2026-11-07",
-   "t": "18:00",
-   "liga": "SA",
-   "local": "Parma",
-   "visitante": "Bologna",
-   "jornada": "Giornata 11"
-  },
-  {
-   "d": "2026-11-07",
-   "t": "20:45",
-   "liga": "SA",
-   "local": "Roma",
-   "visitante": "Sassuolo",
-   "jornada": "Giornata 11"
-  },
-  {
-   "d": "2026-11-08",
-   "t": "12:30",
-   "liga": "SA",
-   "local": "Napoli",
-   "visitante": "Lazio",
-   "jornada": "Giornata 11"
-  },
-  {
-   "d": "2026-11-08",
-   "t": "15:00",
-   "liga": "SA",
-   "local": "Genoa",
-   "visitante": "Milan",
-   "jornada": "Giornata 11"
-  },
-  {
-   "d": "2026-11-08",
-   "t": "15:00",
-   "liga": "SA",
-   "local": "Monza",
-   "visitante": "Atalanta",
-   "jornada": "Giornata 11"
-  },
-  {
-   "d": "2026-11-08",
-   "t": "18:00",
-   "liga": "SA",
-   "local": "Inter",
-   "visitante": "Como",
-   "jornada": "Giornata 11"
-  },
-  {
-   "d": "2026-11-08",
-   "t": "20:45",
-   "liga": "SA",
-   "local": "Fiorentina",
-   "visitante": "Juventus",
-   "jornada": "Giornata 11"
+   "d": "2026-11-29",
+   "t": "21:00",
+   "liga": "LL",
+   "local": "Real Sociedad",
+   "visitante": "Sevilla",
+   "jornada": "Jornada 14"
   },
   {
    "d": "2026-11-21",
@@ -499,76 +395,76 @@
    "jornada": "Giornata 12"
   },
   {
-   "d": "2026-11-06",
+   "d": "2026-11-23",
    "t": "20:45",
-   "liga": "L1",
-   "local": "Toulouse",
-   "visitante": "Strasbourg",
-   "jornada": "Journée 10"
+   "liga": "SA",
+   "local": "Monza",
+   "visitante": "Fiorentina",
+   "jornada": "Giornata 12"
   },
   {
-   "d": "2026-11-07",
-   "t": "17:15",
-   "liga": "L1",
-   "local": "Auxerre",
-   "visitante": "Paris FC",
-   "jornada": "Journée 10"
-  },
-  {
-   "d": "2026-11-07",
+   "d": "2026-11-27",
    "t": "20:45",
-   "liga": "L1",
-   "local": "PSG",
-   "visitante": "Troyes",
-   "jornada": "Journée 10"
+   "liga": "SA",
+   "local": "Venezia",
+   "visitante": "Bologna",
+   "jornada": "Giornata 13"
   },
   {
-   "d": "2026-11-08",
+   "d": "2026-11-28",
    "t": "15:00",
-   "liga": "L1",
-   "local": "Rennes",
-   "visitante": "Lille",
-   "jornada": "Journée 10"
+   "liga": "SA",
+   "local": "Frosinone",
+   "visitante": "Parma",
+   "jornada": "Giornata 13"
   },
   {
-   "d": "2026-11-08",
-   "t": "17:15",
-   "liga": "L1",
-   "local": "Brest",
-   "visitante": "Lyon",
-   "jornada": "Journée 10"
+   "d": "2026-11-28",
+   "t": "18:00",
+   "liga": "SA",
+   "local": "Torino",
+   "visitante": "Lazio",
+   "jornada": "Giornata 13"
   },
   {
-   "d": "2026-11-08",
-   "t": "17:15",
-   "liga": "L1",
-   "local": "Le Mans",
-   "visitante": "Monaco",
-   "jornada": "Journée 10"
-  },
-  {
-   "d": "2026-11-08",
-   "t": "17:15",
-   "liga": "L1",
-   "local": "Angers",
-   "visitante": "Nice",
-   "jornada": "Journée 10"
-  },
-  {
-   "d": "2026-11-08",
-   "t": "17:15",
-   "liga": "L1",
-   "local": "Le Havre",
-   "visitante": "Lorient",
-   "jornada": "Journée 10"
-  },
-  {
-   "d": "2026-11-08",
+   "d": "2026-11-28",
    "t": "20:45",
-   "liga": "L1",
-   "local": "Lens",
-   "visitante": "Marseille",
-   "jornada": "Journée 10"
+   "liga": "SA",
+   "local": "Inter",
+   "visitante": "Genoa",
+   "jornada": "Giornata 13"
+  },
+  {
+   "d": "2026-11-29",
+   "t": "12:30",
+   "liga": "SA",
+   "local": "Udinese",
+   "visitante": "Fiorentina",
+   "jornada": "Giornata 13"
+  },
+  {
+   "d": "2026-11-29",
+   "t": "15:00",
+   "liga": "SA",
+   "local": "Sassuolo",
+   "visitante": "Napoli",
+   "jornada": "Giornata 13"
+  },
+  {
+   "d": "2026-11-29",
+   "t": "18:00",
+   "liga": "SA",
+   "local": "Roma",
+   "visitante": "Monza",
+   "jornada": "Giornata 13"
+  },
+  {
+   "d": "2026-11-29",
+   "t": "20:45",
+   "liga": "SA",
+   "local": "Como",
+   "visitante": "Juventus",
+   "jornada": "Giornata 13"
   },
   {
    "d": "2026-11-20",
@@ -641,39 +537,81 @@
    "local": "Marseille",
    "visitante": "Le Mans",
    "jornada": "Journée 11"
+  },
+  {
+   "d": "2026-11-27",
+   "t": "20:45",
+   "liga": "L1",
+   "local": "Brest",
+   "visitante": "Paris FC",
+   "jornada": "Journée 12"
+  },
+  {
+   "d": "2026-11-28",
+   "t": "17:15",
+   "liga": "L1",
+   "local": "Angers",
+   "visitante": "Lens",
+   "jornada": "Journée 12"
+  },
+  {
+   "d": "2026-11-28",
+   "t": "20:45",
+   "liga": "L1",
+   "local": "PSG",
+   "visitante": "Lorient",
+   "jornada": "Journée 12"
+  },
+  {
+   "d": "2026-11-28",
+   "t": "20:45",
+   "liga": "L1",
+   "local": "Le Mans",
+   "visitante": "Lille",
+   "jornada": "Journée 12"
+  },
+  {
+   "d": "2026-11-28",
+   "t": "20:45",
+   "liga": "L1",
+   "local": "Le Havre",
+   "visitante": "Strasbourg",
+   "jornada": "Journée 12"
+  },
+  {
+   "d": "2026-11-28",
+   "t": "20:45",
+   "liga": "L1",
+   "local": "Nice",
+   "visitante": "Troyes",
+   "jornada": "Journée 12"
+  },
+  {
+   "d": "2026-11-29",
+   "t": "15:00",
+   "liga": "L1",
+   "local": "Auxerre",
+   "visitante": "Marseille",
+   "jornada": "Journée 12"
+  },
+  {
+   "d": "2026-11-29",
+   "t": "17:15",
+   "liga": "L1",
+   "local": "Toulouse",
+   "visitante": "Rennes",
+   "jornada": "Journée 12"
+  },
+  {
+   "d": "2026-11-29",
+   "t": "20:45",
+   "liga": "L1",
+   "local": "Lyon",
+   "visitante": "Monaco",
+   "jornada": "Journée 12"
   }
  ],
  "f1": [
-  {
-   "d": "2026-11-06",
-   "t": "16:30",
-   "titulo": "GP de São Paulo · Libres 1",
-   "lugar": "Interlagos"
-  },
-  {
-   "d": "2026-11-06",
-   "t": "20:00",
-   "titulo": "GP de São Paulo · Libres 2",
-   "lugar": "Interlagos"
-  },
-  {
-   "d": "2026-11-07",
-   "t": "15:30",
-   "titulo": "GP de São Paulo · Libres 3",
-   "lugar": "Interlagos"
-  },
-  {
-   "d": "2026-11-07",
-   "t": "19:00",
-   "titulo": "GP de São Paulo · Clasificación",
-   "lugar": "Interlagos"
-  },
-  {
-   "d": "2026-11-08",
-   "t": "18:00",
-   "titulo": "GP de São Paulo · Carrera",
-   "lugar": "Interlagos"
-  },
   {
    "d": "2026-11-20",
    "t": "01:30",
@@ -703,6 +641,36 @@
    "t": "05:00",
    "titulo": "GP de Las Vegas · Carrera",
    "lugar": "Las Vegas Strip Circuit"
+  },
+  {
+   "d": "2026-11-27",
+   "t": "14:30",
+   "titulo": "GP de Catar · Libres 1",
+   "lugar": "Circuito Internacional de Lusail"
+  },
+  {
+   "d": "2026-11-27",
+   "t": "18:00",
+   "titulo": "GP de Catar · Libres 2",
+   "lugar": "Circuito Internacional de Lusail"
+  },
+  {
+   "d": "2026-11-28",
+   "t": "15:30",
+   "titulo": "GP de Catar · Libres 3",
+   "lugar": "Circuito Internacional de Lusail"
+  },
+  {
+   "d": "2026-11-28",
+   "t": "19:00",
+   "titulo": "GP de Catar · Clasificación",
+   "lugar": "Circuito Internacional de Lusail"
+  },
+  {
+   "d": "2026-11-29",
+   "t": "17:00",
+   "titulo": "GP de Catar · Carrera",
+   "lugar": "Circuito Internacional de Lusail"
   }
  ],
  "padel": [
@@ -747,6 +715,48 @@
    "t": "",
    "titulo": "Dubai P1 · Finales",
    "lugar": "Dubái"
+  },
+  {
+   "d": "2026-11-23",
+   "t": "",
+   "titulo": "Acapulco Major · Fase previa",
+   "lugar": "Acapulco"
+  },
+  {
+   "d": "2026-11-24",
+   "t": "",
+   "titulo": "Acapulco Major · Primera ronda",
+   "lugar": "Acapulco"
+  },
+  {
+   "d": "2026-11-25",
+   "t": "",
+   "titulo": "Acapulco Major · Dieciseisavos",
+   "lugar": "Acapulco"
+  },
+  {
+   "d": "2026-11-26",
+   "t": "",
+   "titulo": "Acapulco Major · Octavos de final",
+   "lugar": "Acapulco"
+  },
+  {
+   "d": "2026-11-27",
+   "t": "",
+   "titulo": "Acapulco Major · Cuartos de final",
+   "lugar": "Acapulco"
+  },
+  {
+   "d": "2026-11-28",
+   "t": "",
+   "titulo": "Acapulco Major · Semifinales",
+   "lugar": "Acapulco"
+  },
+  {
+   "d": "2026-11-29",
+   "t": "",
+   "titulo": "Acapulco Major · Finales",
+   "lugar": "Acapulco"
   }
  ]
 }
